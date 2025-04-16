@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware  # Add this import
 from pydantic import BaseModel
 from crypto_graphix.ciphers.atbash import Atbash, ModifiedAtbash
+from crypto_graphix.ciphers.caesar import Caesar
 
 app = FastAPI()
 
@@ -39,6 +40,13 @@ def perform_cipher(req: CipherRequest):
                 result = ModifiedAtbash.encrypt(req.text, req.key) if req.key else ModifiedAtbash.encrypt(req.text)
             elif req.operation == 'decrypt':
                 result = ModifiedAtbash.decrypt(req.text, req.key) if req.key else ModifiedAtbash.decrypt(req.text)
+            else:
+                raise ValueError("Invalid operation")
+        elif req.cipher == 'Caesar':
+            if req.operation == 'encrypt':
+                result = Caesar.encrypt(req.text, req.key)
+            elif req.operation == 'decrypt':
+                result = Caesar.decrypt(req.text, req.key)
             else:
                 raise ValueError("Invalid operation")
         else:
