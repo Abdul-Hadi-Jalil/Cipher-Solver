@@ -14,7 +14,13 @@ class _HomeScreenState extends State<HomeScreen> {
   bool select1 = false, select2 = false;
   bool isLoading = false;
   String? selectedCipher;
-  final ciphers = ["Caesar", "Atbash", "Modified Atbash"];
+  final ciphers = [
+    "Caesar",
+    "Atbash",
+    "Modified Atbash",
+    "Beaufort",
+    "Vigenere",
+  ];
 
   String? selectedOperation;
   final operations = ["Encrypt", "Decrypt", "Find Key"];

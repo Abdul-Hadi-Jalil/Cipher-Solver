@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware  # Add this import
 from pydantic import BaseModel
 from crypto_graphix.ciphers.atbash import Atbash, ModifiedAtbash
 from crypto_graphix.ciphers.caesar import Caesar
+from crypto_graphix.ciphers.beaufort import Beaufort
+from crypto_graphix.ciphers.vigenere import Vigenere
 
 app = FastAPI()
 
@@ -47,6 +49,20 @@ def perform_cipher(req: CipherRequest):
                 result = Caesar.encrypt(req.text, req.key)
             elif req.operation == 'decrypt':
                 result = Caesar.decrypt(req.text, req.key)
+            else:
+                raise ValueError("Invalid operation")
+        elif req.cipher == 'Beaufort':
+            if req.operation == 'encrypt':
+                result = Beaufort.encrypt(req.text, req.key)
+            elif req.operation == 'decrypt':
+                result = Beaufort.decrypt(req.text, req.key)
+            else:
+                raise ValueError("Invalid operation")
+        elif req.cipher == 'Vigenere':
+            if req.operation == 'encrypt':
+                result = Vigenere.encrypt(req.text, req.key)
+            elif req.operation == 'decrypt':
+                result = Vigenere.decrypt(req.text, req.key)
             else:
                 raise ValueError("Invalid operation")
         else:
